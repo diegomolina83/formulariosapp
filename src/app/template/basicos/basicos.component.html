@@ -3,9 +3,7 @@
 
 <div class="row">
   <div class="col">
-    <form (ngSubmit)="guardar()" #miFormulario="ngForm"  >
-
-
+    <form (ngSubmit)="guardar()" #miFormulario="ngForm">
       <!-- Campo de producto -->
       <div class="mb-3 row">
         <label class="col-sm-3 col-form-label">Producto</label>
@@ -14,16 +12,17 @@
             type="text"
             class="form-control"
             placeholder="Nombre del producto"
-            ngModel 
+            [ngModel]="initForm.producto"
             name="producto"
             autocomplete="false"
             required
             minlength="3"
           />
-          <span class="form-text text-danger" *ngIf="nombreValido()">Debe de ser de 3 letras</span>
+          <span class="form-text text-danger" *ngIf="nombreValido()"
+            >Debe de ser de 3 letras</span
+          >
         </div>
       </div>
-
 
       <!-- Campo de precio -->
       <div class="mb-3 row">
@@ -33,11 +32,14 @@
             type="number"
             class="form-control"
             placeholder="Precio del producto"
-            ngModel 
+            [ngModel]="initForm.precio"
+            customMin
+            [minimo]="0"
             name="precio"
           />
-          <span class="form-text text-danger" *ngIf="precioValido()">El precio debe ser mayor de 0</span>
-
+          <span class="form-text text-danger" *ngIf="precioValido()"
+            >El precio debe ser mayor de 0</span
+          >
         </div>
       </div>
 
@@ -49,7 +51,9 @@
             type="number"
             class="form-control"
             placeholder="Existencias del producto"
-            ngModel 
+            customMin
+            [minimo]="0"
+            [ngModel]="initForm.existencias"
             name="existencias"
           />
         </div>
@@ -57,7 +61,11 @@
 
       <div class="row">
         <div class="col-sm-11">
-          <button type="submit" class="btn btn-primary float-end" [disabled]="!miFormulario.valid">
+          <button
+            type="submit"
+            class="btn btn-primary float-end"
+            [disabled]="!miFormulario.valid"
+          >
             Guardar
           </button>
         </div>
@@ -65,5 +73,3 @@
     </form>
   </div>
 </div>
-
-
